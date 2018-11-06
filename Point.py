@@ -10,5 +10,5 @@ class Point:
 
 a = Point(-1, 5, "O")
 b = Point(2, -6, "P")
-
-print(a, b)
+#
+#  print(a, b)
