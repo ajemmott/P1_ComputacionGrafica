@@ -38,8 +38,11 @@ def get_line_plot():
 
     line = ln.Line(first_point, second_point)
     output = Plotter.Plot(ln.Line.get_digital_discretion(line))
-    Plotter.plt.plot(output.x_list, output.y_list, 'bs')
+    Plotter.plt.plot(output.x_list, output.y_list,'bs',markersize=11)
     Plotter.plt.axis(line.get_dimensions())
+    Plotter.plt.xticks(output.x_list)
+    Plotter.plt.yticks(output.y_list)
+    Plotter.plt.grid(True)
     Plotter.plt.show()
 
 

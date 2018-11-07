@@ -9,8 +9,9 @@ class Plot:
         self.x_list = []
         self.y_list = []
         for point in list_data:
-            self.x_list.append(point.x)
-            self.y_list.append(point.y)
+            self.x_list.append(int(point.x))
+            self.y_list.append(int(point.y))
+
 
 
 

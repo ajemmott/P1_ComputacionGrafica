@@ -107,7 +107,7 @@ class Line:
             y_min = -abs(self.start_point.y)
             y_max = abs(self.start_point.y)
 
-        return [x_min, x_max, y_max, y_min]
+        return [x_min, x_max, y_min, y_max]
 
 
 AB = Line(Point.a, Point.b)
