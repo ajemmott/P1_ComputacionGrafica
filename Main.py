@@ -2,6 +2,7 @@
 import Point as p
 import Plotter
 import Line as ln
+import Radius as r
 import os
 
 
@@ -38,8 +39,26 @@ def get_line_plot():
 
     line = ln.Line(first_point, second_point)
     output = Plotter.Plot(ln.Line.get_digital_discretion(line))
-    Plotter.plt.plot(output.x_list, output.y_list,'bs',markersize=11)
+    Plotter.plt.plot(output.x_list, output.y_list, 'bs', markersize=11)
     Plotter.plt.axis(line.get_dimensions())
+    Plotter.plt.xticks(output.x_list)
+    Plotter.plt.yticks(output.y_list)
+    Plotter.plt.grid(True)
+    Plotter.plt.show()
+
+
+def get_ellipse_plot():
+    x_radius = int(input('Introduzca el valor del radio en x'))
+    y_radius = int(input('Introduzca el valor del radio en y'))
+    center_x = int(input('Introduzca el valor en x del centro'))
+    center_y = int(input('Introduzca el valor en y del centro'))
+
+    shape = r.Ellipse(radius_x=x_radius, radius_y=y_radius, center=(center_x, center_y), is_circle=False)
+    output = Plotter.Plot(shape.get_quarter(), ellipse_tag='True')
+    ratio = shape.radius_x if shape.radius_x > shape.radius_y else shape.radius_y
+    Plotter.plt.plot(output.x_list, output.y_list, 'bs',
+                     markersize=ratio)
+    Plotter.plt.axis(shape.get_dimensions())
     Plotter.plt.xticks(output.x_list)
     Plotter.plt.yticks(output.y_list)
     Plotter.plt.grid(True)
@@ -48,7 +67,8 @@ def get_line_plot():
 
 options = {
     '1': get_line_plot,
-    '2': intro
+    '2': get_ellipse_plot,
+    '3': intro
 }
 
 
@@ -58,12 +78,13 @@ intro()
 while in_use:
     print('Seleccione alguna de las siguientes opciones')
     print('(1). Generar Línea a partir de dos puntos')
-    print('(2). Ver presentación')
-    print('(3). Salir')
+    print('(2). Generar elipse')
+    print('(3). Ver presentación')
+    print('(4). Salir')
 
     opt = str(input())
 
-    if opt == '3':
+    if opt == '4':
         in_use = False
     else:
         call_func(opt)

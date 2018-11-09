@@ -110,6 +110,9 @@ class Line:
         return [x_min, x_max, y_min, y_max]
 
 
+ #   def get_bresenham_discretion(self):
+
+
 AB = Line(Point.a, Point.b)
 #  print(AB.start_point.x, AB.end_point.y, AB.slope)
 point_array = AB.get_digital_discretion()
