@@ -9,6 +9,7 @@ class Plot:
         self.x_list = []
         self.y_list = []
         for point in list_data:
+
             if kwargs['shape_tag'] == 'ellipse' and not None:
                 self.y_list.append(int(point.y) + kwargs['offset_y'])
                 self.x_list.append(int(point.x) + kwargs['offset_x'])

@@ -88,39 +88,98 @@ class Line:
 
     def get_dimensions(self):
         if abs(self.start_point.x) > abs(self.end_point.x):
-            x_min = -abs(self.start_point.x) - 2
-            x_max = abs(self.start_point.x) + 2
+            x_min = -abs(self.start_point.x) - 7
+            x_max = abs(self.start_point.x) + 7
         elif abs(self.start_point.x) < abs(self.end_point.x):
-            x_min = -abs(self.end_point.x) - 2
-            x_max = abs(self.end_point.x) + 2
+            x_min = -abs(self.end_point.x) - 7
+            x_max = abs(self.end_point.x) + 7
         else:
-            x_min = -abs(self.start_point.x)
-            x_max = abs(self.start_point.x)
+            x_min = -abs(self.start_point.x)-7
+            x_max = abs(self.start_point.x)+7
 
         if abs(self.start_point.y) > abs(self.end_point.y):
-            y_min = -abs(self.start_point.y) - 2
-            y_max = abs(self.start_point.y) + 2
+            y_min = -abs(self.start_point.y) - 7
+            y_max = abs(self.start_point.y) + 7
         elif abs(self.start_point.y) < abs(self.end_point.y):
-            y_min = -abs(self.end_point.y) - 2
-            y_max = abs(self.end_point.y) + 2
+            y_min = -abs(self.end_point.y) - 7
+            y_max = abs(self.end_point.y) + 7
         else:
-            y_min = -abs(self.start_point.y)
-            y_max = abs(self.start_point.y)
+            y_min = -abs(self.start_point.y)-7
+            y_max = abs(self.start_point.y)+7
 
         return [x_min, x_max, y_min, y_max]
 
     def get_bresenham_discretion(self):
-        bresenham_data = []
         k = 0
         x_k = self.start_point.x
-        y_k = self.end_point.y
-        p_k = 2*y_k / x_k
+        y_k = self.start_point.y
+
 
         if 0 < self.slope <= 1:
-            for point in self.slope:
-                pass
+            p_k = 2 * abs(self.y_len) - self.x_len
+
+            bresenham_data = [Point.Point(self.start_point.x, self.start_point.y, str(k))]
+            k += 1
+            for point in range(self.x_len):
+                new_values = self.get_decision_parameter(p_k, x_k,y_k,self.y_len,self.x_len,1,1)
+                x_k = new_values[0]
+                y_k = new_values[1]
+                p_k = new_values[2]
+                bresenham_data.append(Point.Point(x_k, y_k, str(k)))
+                k += 1
+
+        elif 0 > self.slope >= -1:
+            p_k = 2 * abs(self.y_len) - self.x_len
+
+            bresenham_data = [Point.Point(self.start_point.x, self.start_point.y, str(k))]
+            k += 1
+            for point in range(self.x_len):
+                new_values = self.get_decision_parameter(p_k, x_k,y_k,abs(self.y_len),self.x_len, 1, -1)
+                x_k = new_values[0]
+                y_k = new_values[1]
+                p_k = new_values[2]
+                bresenham_data.append(Point.Point(x_k, y_k, str(k)))
+                k += 1
+
+        elif self.slope > 1:
+            p_k = 2 * abs(self.x_len) - abs(self.y_len)
+
+            bresenham_data = [Point.Point(self.start_point.x, self.start_point.y, str(k))]
+            k += 1
+            for point in range(abs(self.y_len)):
+                new_values = self.get_decision_parameter(p_k, y_k, x_k, abs(self.x_len), abs(self.y_len), 1, 1)
+                x_k = new_values[1]
+                y_k = new_values[0]
+                p_k = new_values[2]
+                bresenham_data.append(Point.Point(x_k, y_k, str(k)))
+                k += 1
+
+        elif self.slope < -1:
+            p_k = 2 * abs(self.x_len) - abs(self.y_len)
+
+            bresenham_data = [Point.Point(self.start_point.x, self.start_point.y, str(k))]
+            k += 1
+            for point in range(abs(self.y_len)):
+                new_values = self.get_decision_parameter(p_k, y_k, x_k, abs(self.x_len), abs(self.y_len), -1 , 1)
+                x_k = new_values[1]
+                y_k = new_values[0]
+                p_k = new_values[2]
+                bresenham_data.append(Point.Point(x_k, y_k, str(k)))
+                k += 1
+
         return bresenham_data
 
+    @staticmethod
+    def get_decision_parameter(old_p, x_k, y_k, y_len, x_len, x, y):
+        if old_p < 0:
+            new_x = x_k + x
+            new_y = y_k
+            p_k = old_p + 2*y_len
+        else:
+            new_x = x_k + x
+            new_y = y_k + y
+            p_k = old_p + 2*y_len - 2*x_len
+        return [new_x, new_y, p_k]
 
 AB = Line(Point.a, Point.b)
 #  print(AB.start_point.x, AB.end_point.y, AB.slope)

@@ -6,12 +6,7 @@ class Ellipse:
     def __init__(self, **kwargs):
 
         self.radius_x = kwargs['radius_x']
-
-        if kwargs['is_circle']:
-            self.radius_y = kwargs['radius_x']
-        else:
-            self.radius_y = kwargs['radius_y']
-
+        self.radius_y = kwargs['radius_y']
         self.offset_x = kwargs['center'][0]
         self.offset_y = kwargs['center'][1]
 
