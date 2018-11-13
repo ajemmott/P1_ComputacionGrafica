@@ -54,7 +54,7 @@ def get_ellipse_plot():
     center_y = int(input('Introduzca el valor en y del centro'))
 
     shape = r.Ellipse(radius_x=x_radius, radius_y=y_radius, center=(center_x, center_y), is_circle=False)
-    output = Plotter.Plot(shape.get_quarter(), ellipse_tag='True')
+    output = Plotter.Plot(shape.get_quarter(), shape_tag='ellipse', offset_x=shape.offset_x, offset_y=shape.offset_y)
     ratio = shape.radius_x if shape.radius_x > shape.radius_y else shape.radius_y
     Plotter.plt.plot(output.x_list, output.y_list, 'bs',
                      markersize=ratio)

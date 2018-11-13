@@ -109,8 +109,17 @@ class Line:
 
         return [x_min, x_max, y_min, y_max]
 
+    def get_bresenham_discretion(self):
+        bresenham_data = []
+        k = 0
+        x_k = self.start_point.x
+        y_k = self.end_point.y
+        p_k = 2*y_k / x_k
 
- #   def get_bresenham_discretion(self):
+        if 0 < self.slope <= 1:
+            for point in self.slope:
+                pass
+        return bresenham_data
 
 
 AB = Line(Point.a, Point.b)
